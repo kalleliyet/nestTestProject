@@ -7,13 +7,13 @@ import { randomUUID } from 'crypto';
 export class EpisodesService {
     private episodes: Episode[] = []
 
-    async findAll(sort: 'asc' | 'desc' = 'desc') {
+    async findAll(sort: 'asc' | 'desc' = 'desc',limit) {
         const sortAsc = (a: Episode, b:Episode) => (a.name > b.name ? 1 : -1);
         const sortDesc = (a: Episode, b:Episode) => (a.name < b.name ? 1 : -1);
 
         return sort == 'asc'
-            ? this.episodes.sort(sortAsc)
-            : this.episodes.sort(sortDesc);
+            ? this.episodes.slice(0,limit).sort(sortAsc)
+            : this.episodes.slice(0,limit).sort(sortDesc);
     }
 
     async findFeatured(){
